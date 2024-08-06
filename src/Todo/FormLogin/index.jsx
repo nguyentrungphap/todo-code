@@ -5,9 +5,18 @@ function FormLogin() {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({
-        email: '',
-        password: ''
+        email: null,
+        password: null
     });
+    console.log(email)
+    const handleChangeEmail = (e) =>{
+        setPassword(e.target.value)
+         setErrors(prevErrors =>({...prevErrors , email:null}))
+    }
+    const handleChangePassword = (e) =>{
+         setEmail(e.target.value)
+         setErrors(prevErrors =>({...prevErrors , password:null}))
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validator.isEmail(email)) { 
@@ -33,8 +42,9 @@ function FormLogin() {
         } else {
             setErrors(prevErrors => ({ ...prevErrors, password: null }));
         }
+        console.log(errors)
+
     };
-    console.log(errors)
 
     return (
         <form onSubmit={handleSubmit} className='bg-gray-600 w-max p-12 m-auto grid gap-10'>
@@ -44,11 +54,11 @@ function FormLogin() {
                     <label htmlFor="Email" className='text-white text-start'>Email:</label>
                     <input
                         type="text"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChangeEmail}
                         placeholder="Nhập email"
                         className='w-full'
                     />
-                    <p className={errors.email === 'Email hợp lệ' ? 'valid' : 'invalid'}>
+                    <p className={errors.email === null ? 'valid' : 'invalid'}>
                         {errors.email}
                     </p>
                 </div>
@@ -56,11 +66,11 @@ function FormLogin() {
                     <label htmlFor="Password" className='text-white text-start'>Password</label>
                     <input
                         type="password"
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handleChangePassword}
                         placeholder="Nhập mật khẩu"
                         className='w-full'
                     />
-                    <p className={errors.password === 'Mật khẩu hợp lệ' ? 'valid' : 'invalid'}>
+                    <p className={errors.password === null ? 'valid' : 'invalid'}>
                         {errors.password}
                     </p>
                 </div>
