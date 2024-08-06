@@ -8,7 +8,6 @@ function FormLogin() {
         email: null,
         password: null
     });
-    console.log(email)
     const handleChangeEmail = (e) =>{
         setPassword(e.target.value)
          setErrors(prevErrors =>({...prevErrors , email:null}))
@@ -19,11 +18,12 @@ function FormLogin() {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (validator.isEmail(email)) { 
-            setErrors(prevErrors => ({ ...prevErrors, email: null }));
+        if (!validator.isEmail(email)) { 
+            setErrors(prevErrors => ({ ...prevErrors, email: 'Email không hợp lệ' }));
         } 
         else {
-            setErrors(prevErrors => ({ ...prevErrors, email: 'Email không hợp lệ' }));
+            setErrors(prevErrors => ({ ...prevErrors, email: null }));
+
         }
 
         const minLength = /.{8,}/;
@@ -42,9 +42,7 @@ function FormLogin() {
         } else {
             setErrors(prevErrors => ({ ...prevErrors, password: null }));
         }
-        console.log(errors)
-
-    };
+            };
 
     return (
         <form onSubmit={handleSubmit} className='bg-gray-600 w-max p-12 m-auto grid gap-10'>
